@@ -6,19 +6,17 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import Title from './Title';
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
+function createData(id, date, name, shipTo, paymentMethod, amount, active) {
+  return { id, date, name, shipTo, paymentMethod, amount, active };
 }
 
 const rows = [
-  createData(0, '16 Mar, 2019', 'Elvis Presley', 'Tupelo, MS', 'VISA ⠀•••• 3719', 312.44),
-  createData(1, '16 Mar, 2019', 'Paul McCartney', 'London, UK', 'VISA ⠀•••• 2574', 866.99),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
-  createData(3, '16 Mar, 2019', 'Michael Jackson', 'Gary, IN', 'AMEX ⠀•••• 2000', 654.39),
-  createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'Long Branch, NJ', 'VISA ⠀•••• 5919', 212.79),
+  createData(0, 'sakura', '172.16.1.213', 'success', '2020/08/28 16:50', "2020/08/28 14:30", "true"),
+  createData(1, 'v_sakura', '172.16.1.214', 'failure', '2020/08/28 16:50', "2020/08/28 16:52", "false"),
 ];
 
 function preventDefault(event) {
@@ -31,19 +29,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Orders() {
+export default function MachineCondition() {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Recent Orders</Title>
+      <Title>Group Name</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Ship To</TableCell>
-            <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
+            <TableCell>ホスト名</TableCell>
+            <TableCell>IPアドレス</TableCell>
+            <TableCell>最新疎通結果</TableCell>
+            <TableCell>最終疎通成功時刻</TableCell>
+            <TableCell>疎通失敗時刻</TableCell>
+            <TableCell>有効/無効</TableCell>
+            <TableCell>即時実行</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -53,7 +53,10 @@ export default function Orders() {
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.shipTo}</TableCell>
               <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{row.amount}</TableCell>
+              <TableCell>{row.amount}</TableCell>
+              <TableCell>{row.active}</TableCell>
+              <TableCell><PlayCircleOutlineIcon /></TableCell>
+              
             </TableRow>
           ))}
         </TableBody>

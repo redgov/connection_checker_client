@@ -19,15 +19,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import MachineCondition from './machineCondition';
+import GroupEdit from './groupEdit';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        In a Hidden Ltd.
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -125,7 +125,6 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
@@ -142,7 +141,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            Connection Checker
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -172,18 +171,17 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
+
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Orders />
+                <MachineCondition />
               </Paper>
             </Grid>
+
+            <Grid item xs={12}>
+              <GroupEdit />
+            </Grid>
+
           </Grid>
           <Box pt={4}>
             <Copyright />
