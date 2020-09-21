@@ -1,5 +1,4 @@
-import React from 'react';
-import Link from '@material-ui/core/Link';
+import React, { useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -37,20 +36,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount, active) {
-  return { id, date, name, shipTo, paymentMethod, amount, active };
-}
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-const rows = [
-  createData(0, 'Solaris', 'hinagaki@gmail.com', 'success', '2020/08/28 16:50', "2020/08/28 14:30", "true"),
-];
-
 const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
@@ -68,9 +53,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GroupEdit() {
+export default function GroupEdit({ machines, groups, selectedGroupId,
+  selectGroupId }) {
+
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     age: '',
     name: 'hai',
   });
@@ -95,16 +82,18 @@ export default function GroupEdit() {
           target group
         </InputLabel>
         <NativeSelect
-          value={state.age}
-          onChange={handleChange}
+          value={selectedGroupId}
+          onChange={(e) => selectGroupId(Number(e.target.value))}
           inputProps={{
             name: 'age',
             id: 'age-native-label-placeholder',
           }}
         >
-          <option value={10}>AIX</option>
-          <option value={20}>HP-UX</option>
-          <option value={30}>Solaris</option>
+          {groups.map((group) => (
+            <option key={group.id} value={group.id}>
+              {group.name}
+            </option>
+          ))}
         </NativeSelect>
         <FormHelperText>編集したいグループを選択してください</FormHelperText>
       </FormControl>
@@ -121,13 +110,13 @@ export default function GroupEdit() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
+            {groups.map((group) => (group.id === selectedGroupId &&
+              <TableRow key={group.id}>
                 <TableCell>
                   <TextField
-                    required id="standard-required" 
-                    label="Required" 
-                    defaultValue="Solaris"
+                    required
+                    label="Required"
+                    value={group.name}
                   />
                 </TableCell>
                 <TableCell>
@@ -136,7 +125,7 @@ export default function GroupEdit() {
                     label="Multiline"
                     multiline
                     rows={4}
-                    defaultValue="hinagaki@gmail.com"
+                    value={group.to_addresses}
                     variant="outlined"
                   />
                 </TableCell>
@@ -148,103 +137,100 @@ export default function GroupEdit() {
       </Paper>
 
       <Paper className={classes.paper}>
-      <Title>Add New Machine</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>ホスト名</TableCell>
-            <TableCell>IPアドレス</TableCell>
-            <TableCell>追加</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow key="0">
-            <TableCell>
-              <TextField
-                required id="standard-required" 
-                label="Required" 
-                defaultValue="" 
-              />
-            </TableCell>
-            <TableCell>
-              <TextField
-                required id="standard-required" 
-                label="Required" 
-                defaultValue="" 
-              />
-            </TableCell>
-            <TableCell><AddCircleOutlineRoundedIcon /></TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+        <Title>Add New Machine</Title>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>ホスト名</TableCell>
+              <TableCell>IPアドレス</TableCell>
+              <TableCell>追加</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow key="0">
+              <TableCell>
+                <TextField
+                  required
+                  label="Required"
+                  defaultValue=""
+                />
+              </TableCell>
+              <TableCell>
+                <TextField
+                  required
+                  label="Required"
+                  defaultValue=""
+                />
+              </TableCell>
+              <TableCell><AddCircleOutlineRoundedIcon /></TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </Paper>
 
       <Paper className={classes.paper}>
-      <Title>Edit Group's Machines</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>ホスト名</TableCell>
-            <TableCell>IPアドレス</TableCell>
-            <TableCell>所属グループ</TableCell>
-            <TableCell>有効/無効</TableCell>
-            <TableCell>更新</TableCell>
-            <TableCell>削除</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {rows.map((row) => (
-            <StyledTableRow key={row.id}>
-              <StyledTableCell>
-                <TextField
-                  required id="standard-required" 
-                  defaultValue="kiso"
-                />
-              </StyledTableCell>
-              <StyledTableCell>
-                <TextField
-                  required id="standard-required" 
-                  defaultValue=""
-                />
-              </StyledTableCell>
-              <StyledTableCell>
-              <FormControl className={classes.formControl}>
-                <NativeSelect
-                  value={state.age}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: 'age',
-                    id: 'age-native-label-placeholder',
-                  }}
-                >
-                  <option value={10}>AIX</option>
-                  <option value={20}>HP-UX</option>
-                  <option value={30}>Solaris</option>
-                </NativeSelect>
-              </FormControl>
-              </StyledTableCell>
-              <StyledTableCell>
-                <Switch
-                  checked={active}
-                  onChange={handleSwitch}
-                  color="primary"
-                  name="checkedB"
-                  inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-              </StyledTableCell>
-              <StyledTableCell><SaveRoundedIcon /></StyledTableCell>
-              <StyledTableCell><DeleteForeverRoundedIcon /></StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
+        <Title>Edit Group's Machines</Title>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>ホスト名</TableCell>
+              <TableCell>IPアドレス</TableCell>
+              <TableCell>所属グループ</TableCell>
+              <TableCell>有効/無効</TableCell>
+              <TableCell>更新</TableCell>
+              <TableCell>削除</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {machines.map((machine) => (
+              <StyledTableRow key={machine.id}>
+                <StyledTableCell>
+                  <TextField
+                    required
+                    defaultValue={machine.name}
+                  />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <TextField
+                    required
+                    defaultValue={machine.ip_address}
+                  />
+                </StyledTableCell>
+                <StyledTableCell>
+                  <FormControl className={classes.formControl}>
+                    <NativeSelect
+                      value={state.age}
+                      onChange={handleChange}
+                      inputProps={{
+                        name: 'age',
+                        id: 'age-native-label-placeholder',
+                      }}
+                    >
+                      {groups.map(group =>
+                        <option key={group.id} value={group.id}>
+                          {group.name}
+                        </option>
+                      )}
+                    </NativeSelect>
+                  </FormControl>
+                </StyledTableCell>
+                <StyledTableCell>
+                  <Switch
+                    checked={active}
+                    onChange={handleSwitch}
+                    color="primary"
+                    name="checkedB"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                  />
+                </StyledTableCell>
+                <StyledTableCell><SaveRoundedIcon /></StyledTableCell>
+                <StyledTableCell><DeleteForeverRoundedIcon /></StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
       </Paper>
 
-      <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more orders
-        </Link>
-      </div>
     </React.Fragment>
   );
 }
