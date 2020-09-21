@@ -6,7 +6,6 @@ import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,9 +17,12 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import MachineCondition from './machineCondition';
-import GroupEdit from './groupEdit';
+import MachineCondition from '../containers/machineCondition';
+import Sidebar from '../containers/sidebar';
+import GroupEdit from '../containers/groupEdit';
+import GroupAdd from './groupAdd';
+import { modeType } from '../constants'
+
 
 function Copyright() {
   return (
@@ -116,7 +118,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+
+export default function Dashboard({ mode }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -163,24 +166,24 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
+        <Sidebar />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <MachineCondition />
-              </Paper>
+              {mode === modeType.GroupAdd ? <GroupAdd />
+                : mode === modeType.GroupEdit ? <GroupEdit />
+                  : mode === modeType.Machines ?
+                    <Paper className={classes.paper}>
+                      <MachineCondition />
+                    </Paper>
+                    : null
+              }
             </Grid>
 
-            <Grid item xs={12}>
-              <GroupEdit />
-            </Grid>
+
 
           </Grid>
           <Box pt={4}>
