@@ -1,6 +1,11 @@
 import actionType from './actionType'
 
-export const selectGroupId = id => ({
-  type: actionType.SELECTE_GROUP_ID,
+export const selectGroup = id => ({
+  type: actionType.SELECT_GROUP,
+  id
+})
+
+export const selectMode = id => ({
+  type: actionType.SELECT_MODE,
   id
 })

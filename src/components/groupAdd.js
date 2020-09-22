@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
@@ -10,10 +10,6 @@ import TableRow from '@material-ui/core/TableRow';
 import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import Title from './Title';
 
-
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -34,17 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function GroupAdd({ machines, groups }) {
   const classes = useStyles();
-  const [state, setState] = useState({
-    age: '',
-    name: 'hai',
-  });
 
-
-  const [active, setActive] = React.useState(true);
-  const handleSwitch = event => {
-    setActive(event.target.checked)
-  }
-  
   return (
     <React.Fragment>
 
