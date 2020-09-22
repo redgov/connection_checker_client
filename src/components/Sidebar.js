@@ -9,22 +9,28 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
+import { modeType } from '../constants'
 
-export default function Sidebar({groups}) {
-  console.log(groups)
+
+export default function Sidebar({ groups, selectGroup, selectMode }) {
+
+  const handleClickGroup = (group_id) => {
+    selectGroup(group_id)
+    selectMode(modeType.Machines)
+  }
 
   return (
     <React.Fragment>
       <List>
 
-        <ListItem button>
+        <ListItem button onClick={() => selectMode(modeType.GroupAdd)}>
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="グループ追加" />
         </ListItem>
 
-        <ListItem button>
+        <ListItem button onClick={() => selectMode(modeType.GroupEdit)}>
           <ListItemIcon>
             <ShoppingCartIcon />
           </ListItemIcon>
@@ -37,14 +43,15 @@ export default function Sidebar({groups}) {
 
         <ListSubheader inset>Group List</ListSubheader>
         {groups.map((group) => (
-          <ListItem button key={group.id}>
+          <ListItem button
+            onClick={() => handleClickGroup(Number(group.id))} key={group.id}>
             <ListItemIcon>
               <AssignmentIcon />
             </ListItemIcon>
             <ListItemText primary={group.name} />
           </ListItem>
         ))}
-        
+
       </List>
     </React.Fragment>
   )

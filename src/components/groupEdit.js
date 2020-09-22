@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GroupEdit({ machines, groups, selectedGroupId,
-  selectGroupId }) {
+  selectGroup }) {
 
   const classes = useStyles();
   const [state, setState] = useState({
@@ -83,7 +83,7 @@ export default function GroupEdit({ machines, groups, selectedGroupId,
         </InputLabel>
         <NativeSelect
           value={selectedGroupId}
-          onChange={(e) => selectGroupId(Number(e.target.value))}
+          onChange={(e) => selectGroup(Number(e.target.value))}
           inputProps={{
             name: 'age',
             id: 'age-native-label-placeholder',

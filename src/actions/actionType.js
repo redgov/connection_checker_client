@@ -1,6 +1,7 @@
 
 const actionType = {
-  SELECT_GROUP_ID: "SELECT_GROUP_ID"
+  SELECT_GROUP: "SELECT_GROUP",
+  SELECT_MODE: "SELECT_MODE",
 }
 
 export default actionType
