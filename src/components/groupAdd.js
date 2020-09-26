@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
@@ -28,8 +28,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GroupAdd({ machines, groups }) {
+
+export default function GroupAdd({ addGroup }) {
   const classes = useStyles();
+
+  const [groupName, setGroupName] = useState("")
+  const [address, setAddress] = useState("")
+
+  const handleClickAdd = () => {
+    if (groupName === ""){
+      alert("グループ名は最低一文字入力してください")
+      return
+    }
+    addGroup(groupName, address)
+  }
 
   return (
     <React.Fragment>
@@ -40,7 +52,7 @@ export default function GroupAdd({ machines, groups }) {
           <TableHead>
             <TableRow>
               <TableCell>グループ名</TableCell>
-              <TableCell>通知先IPアドレス</TableCell>
+              <TableCell>通知先メールアドレス</TableCell>
               <TableCell>追加</TableCell>
             </TableRow>
           </TableHead>
@@ -50,17 +62,24 @@ export default function GroupAdd({ machines, groups }) {
                 <TextField
                   required
                   label="Required"
-                  defaultValue=""
+                  value={groupName}
+                  onChange={(e)=>setGroupName(e.target.value)}
                 />
               </TableCell>
               <TableCell>
                 <TextField
-                  required
-                  label="Required"
-                  defaultValue=""
+                  id="outlined-multiline-static"
+                  label="mail addresses"
+                  multiline
+                  rows={4}
+                  value={address}
+                  onChange={(e)=>setAddress(e.target.value)}
+                  variant="outlined"
                 />
               </TableCell>
-              <TableCell><AddCircleOutlineRoundedIcon /></TableCell>
+              <TableCell>
+                <AddCircleOutlineRoundedIcon button="true" onClick={handleClickAdd} />
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
