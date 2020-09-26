@@ -31,7 +31,6 @@ export const getGroups = () => {
     .then(r => {
       console.log(r)
       dispatch(setGroups(r.data.groups))
-      alert("グループの登録に成功しました。")
     })
     .catch(e => console.log(e))
   }
@@ -44,6 +43,17 @@ export const addGroup = (name, mail_addresses_text) => {
       url: `${URL_PREFIX}/groups`,
       data: {"name": name, "mail_addresses_text": mail_addresses_text}
     })
+    .then(r => {
+      console.log(r)
+      dispatch(getGroups())
+    })
+    .catch(e => console.log(e))
+  }
+}
+
+export const deleteGroup = id => {
+  return dispatch => {
+    return axios.delete(`${URL_PREFIX}/groups?id=${id}`)
     .then(r => {
       console.log(r)
       dispatch(getGroups())

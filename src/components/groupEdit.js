@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GroupEdit({ machines, groups, selectedGroupId,
-  selectGroup }) {
+  selectGroup, deleteGroup }) {
 
   const classes = useStyles();
   const [state, setState] = useState({
@@ -73,6 +73,10 @@ export default function GroupEdit({ machines, groups, selectedGroupId,
   const [active, setActive] = React.useState(true);
   const handleSwitch = event => {
     setActive(event.target.checked)
+  }
+
+  const handleDeleteGroup = () => {
+    deleteGroup(selectedGroupId)
   }
 
   return (
@@ -107,6 +111,7 @@ export default function GroupEdit({ machines, groups, selectedGroupId,
               <TableCell>グループ名</TableCell>
               <TableCell>送信先メールアドレス</TableCell>
               <TableCell>更新</TableCell>
+              <TableCell>削除</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -130,6 +135,12 @@ export default function GroupEdit({ machines, groups, selectedGroupId,
                   />
                 </TableCell>
                 <TableCell><SaveRoundedIcon /></TableCell>
+                <TableCell>
+                  <DeleteForeverRoundedIcon
+                    button="true"
+                    onClick={handleDeleteGroup}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
