@@ -31,7 +31,6 @@ export const getGroups = () => {
     .then(r => {
       console.log(r)
       dispatch(setGroups(r.data.groups))
-      alert("グループの登録に成功しました。")
     })
     .catch(e => console.log(e))
   }
