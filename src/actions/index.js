@@ -1,6 +1,8 @@
 import axios from 'axios'
 import actionType from './actionType'
 
+const URL_PREFIX = "http://127.0.0.1:8000"
+
 
 export const selectGroup = id => ({
   type: actionType.SELECT_GROUP,
@@ -12,15 +14,39 @@ export const selectMode = id => ({
   id
 })
 
+export const setGroups = groups => ({
+  type: actionType.SET_GROUPS,
+  groups
+})
+
+
+// thunk
+
+export const getGroups = () => {
+  return dispatch => {
+    return axios({
+      method: 'get',
+      url: `${URL_PREFIX}/groups`,
+    })
+    .then(r => {
+      console.log(r)
+      dispatch(setGroups(r.data.groups))
+      alert("グループの登録に成功しました。")
+    })
+    .catch(e => console.log(e))
+  }
+}
+
 export const addGroup = (name, mail_addresses_text) => {
-  return () => {
+  return dispatch => {
     return axios({
       method: 'post',
-      url: 'http://127.0.0.1:8000/groups',
+      url: `${URL_PREFIX}/groups`,
       data: {"name": name, "mail_addresses_text": mail_addresses_text}
     })
     .then(r => {
       console.log(r)
+      dispatch(getGroups())
     })
     .catch(e => console.log(e))
   }

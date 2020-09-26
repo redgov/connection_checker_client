@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  selectGroup: (id) => dispatch(selectGroup(id)),
+  selectGroup: id => dispatch(selectGroup(id)),
   selectMode: id => dispatch(selectMode(id)),
 })
 
