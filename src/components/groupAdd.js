@@ -52,7 +52,7 @@ export default function GroupAdd({ addGroup }) {
           <TableHead>
             <TableRow>
               <TableCell>グループ名</TableCell>
-              <TableCell>通知先IPアドレス</TableCell>
+              <TableCell>通知先メールアドレス</TableCell>
               <TableCell>追加</TableCell>
             </TableRow>
           </TableHead>
@@ -68,10 +68,13 @@ export default function GroupAdd({ addGroup }) {
               </TableCell>
               <TableCell>
                 <TextField
-                  required
-                  label="Required"
+                  id="outlined-multiline-static"
+                  label="mail addresses"
+                  multiline
+                  rows={4}
                   value={address}
                   onChange={(e)=>setAddress(e.target.value)}
+                  variant="outlined"
                 />
               </TableCell>
               <TableCell>
