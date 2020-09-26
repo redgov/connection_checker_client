@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -119,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Dashboard({ mode }) {
+export default function Dashboard({ mode, getGroups }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -128,6 +128,11 @@ export default function Dashboard({ mode }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    // DBからgroup取得
+    getGroups()
+  }, [getGroups])
 
   return (
     <div className={classes.root}>
