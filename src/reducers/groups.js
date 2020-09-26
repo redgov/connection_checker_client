@@ -10,6 +10,8 @@ const sample_groups = [
 
 const groups = (state = sample_groups, action) => {
   switch (action.type) {
+    case actionType.SET_GROUPS:
+      return action.groups
     default:
       return state
   }
