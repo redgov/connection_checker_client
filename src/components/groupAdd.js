@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
@@ -28,8 +28,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GroupAdd({ machines, groups }) {
+
+export default function GroupAdd({ addGroup }) {
   const classes = useStyles();
+
+  const [groupName, setGroupName] = useState("")
+  const [address, setAddress] = useState("")
+
+  const handleClickAdd = () => {
+    if (groupName === ""){
+      alert("グループ名は最低一文字入力してください")
+      return
+    }
+    addGroup(groupName, address)
+  }
 
   return (
     <React.Fragment>
@@ -50,17 +62,21 @@ export default function GroupAdd({ machines, groups }) {
                 <TextField
                   required
                   label="Required"
-                  defaultValue=""
+                  value={groupName}
+                  onChange={(e)=>setGroupName(e.target.value)}
                 />
               </TableCell>
               <TableCell>
                 <TextField
                   required
                   label="Required"
-                  defaultValue=""
+                  value={address}
+                  onChange={(e)=>setAddress(e.target.value)}
                 />
               </TableCell>
-              <TableCell><AddCircleOutlineRoundedIcon /></TableCell>
+              <TableCell>
+                <AddCircleOutlineRoundedIcon button="true" onClick={handleClickAdd} />
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>

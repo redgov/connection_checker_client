@@ -20,7 +20,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MachineCondition from '../containers/machineCondition';
 import Sidebar from '../containers/sidebar';
 import GroupEdit from '../containers/groupEdit';
-import GroupAdd from './groupAdd';
+import GroupAdd from '../containers/groupAdd';
 import { modeType } from '../constants'
 
 
