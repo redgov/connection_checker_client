@@ -50,3 +50,14 @@ export const addGroup = (name, mail_addresses_text) => {
     .catch(e => console.log(e))
   }
 }
+
+export const deleteGroup = id => {
+  return dispatch => {
+    return axios.delete(`${URL_PREFIX}/groups?id=${id}`)
+    .then(r => {
+      console.log(r)
+      dispatch(getGroups())
+    })
+    .catch(e => console.log(e))
+  }
+}

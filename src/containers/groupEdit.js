@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { selectGroup } from '../actions'
+import { selectGroup, deleteGroup } from '../actions'
 import GroupEdit from "../components/groupEdit"
 
 
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  selectGroup: (id) => dispatch(selectGroup(id))
+  selectGroup: id => dispatch(selectGroup(id)),
+  deleteGroup: id => dispatch(deleteGroup(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupEdit)
