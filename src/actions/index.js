@@ -76,3 +76,17 @@ export const deleteGroup = id => {
     .catch(e => console.log(e))
   }
 }
+export const addMachine = (group_id, name, ip_address) => {
+  return dispatch => {
+    return axios({
+      method: 'post',
+      url: `${URL_PREFIX}/${API.MACHINES}`,
+      data: {"group_id": group_id, "name": name, "ip_address": ip_address}
+    })
+    .then(r => {
+      console.log(r)
+      // dispatch(getMachines())
+    })
+    .catch(e => console.log(e))
+  }
+}

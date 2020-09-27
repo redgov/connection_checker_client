@@ -54,13 +54,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GroupEdit({ machines, groups, mode, selectedGroupId,
-  selectGroup, deleteGroup, editGroup }) {
+  selectGroup, deleteGroup, editGroup, addMachine }) {
 
   const classes = useStyles();
-  const [state, setState] = useState({
-    age: '',
-    name: 'hai',
-  });
 
   const [newGroupName, setNewGroupName] = useState("")
   const [newMailAddresses, setNewMailAddresses] = useState("")
@@ -80,14 +76,6 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
     }
   }, [selectedGroupId])
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-  };
-
   const [active, setActive] = React.useState(true);
   const handleSwitch = event => {
     setActive(event.target.checked)
@@ -96,6 +84,10 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
   const handleDeleteGroup = () => {
     deleteGroup(selectedGroupId)
   }
+
+  // for add machine
+  const [newMachineName, setNewMachineName] = useState("")
+  const [newMachineAddress, setNewMachineAddress] = useState("")
 
   return (
     <React.Fragment>
@@ -122,7 +114,7 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
 
       <Paper className={classes.paper}>
 
-        <Title>Edit Group Info</Title>
+        <Title>グループ編集</Title>
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -176,7 +168,7 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
       </Paper>
 
       <Paper className={classes.paper}>
-        <Title>Add New Machine</Title>
+        <Title>新マシン追加</Title>
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -191,24 +183,35 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
                 <TextField
                   required
                   label="Required"
-                  defaultValue=""
+                  value={newMachineName}
+                  onChange={(e) => setNewMachineName(e.target.value)}
                 />
               </TableCell>
               <TableCell>
                 <TextField
                   required
                   label="Required"
-                  defaultValue=""
+                  value={newMachineAddress}
+                  onChange={(e) => setNewMachineAddress(e.target.value)}
                 />
               </TableCell>
-              <TableCell><AddCircleOutlineRoundedIcon /></TableCell>
+              <TableCell>
+                <AddCircleOutlineRoundedIcon 
+                  button="true"
+                  onClick={() => addMachine(
+                    selectedGroupId,
+                    newMachineName,
+                    newMachineAddress
+                  )}
+                />
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </Paper>
 
       <Paper className={classes.paper}>
-        <Title>Edit Group's Machines</Title>
+        <Title>マシン情報編集</Title>
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -238,8 +241,6 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
                 <StyledTableCell>
                   <FormControl className={classes.formControl}>
                     <NativeSelect
-                      value={state.age}
-                      onChange={handleChange}
                       inputProps={{
                         name: 'age',
                         id: 'age-native-label-placeholder',
