@@ -6,6 +6,7 @@ import GroupEdit from "../components/groupEdit"
 const mapStateToProps = (state) => ({
   machines: state.machines,
   groups: state.groups,
+  mode: state.mode,
   selectedGroupId: state.selectedGroupId,
 })
 

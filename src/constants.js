@@ -1,6 +1,7 @@
 
 export const modeType = {
-  GroupAdd: 0,
-  GroupEdit: 1,
-  Machines: 2,
+  Home: 0,
+  GroupAdd: 1,
+  GroupEdit: 2,
+  Machines: 3,
 }
