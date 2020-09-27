@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GroupEdit({ machines, groups, mode, selectedGroupId,
-  selectGroup, deleteGroup }) {
+  selectGroup, deleteGroup, editGroup }) {
 
   const classes = useStyles();
   const [state, setState] = useState({
@@ -73,7 +73,7 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
 
   useEffect(() => {
     for (let i = 0; i < groups.length; i++) {
-      if (groups[i].id === selectedGroupId){
+      if (groups[i].id === selectedGroupId) {
         setNewGroupName(groups[i].name)
         setNewMailAddresses(groups[i].to_addresses)
       }
@@ -154,7 +154,15 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
                     variant="outlined"
                   />
                 </TableCell>
-                <TableCell><SaveRoundedIcon /></TableCell>
+                <TableCell>
+                  <SaveRoundedIcon
+                    button="true"
+                    onClick={() => editGroup(
+                      selectedGroupId,
+                      newGroupName,
+                      newMailAddresses)}
+                  />
+                </TableCell>
                 <TableCell>
                   <DeleteForeverRoundedIcon
                     button="true"

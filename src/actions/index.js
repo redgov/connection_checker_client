@@ -51,6 +51,21 @@ export const addGroup = (name, mail_addresses_text) => {
   }
 }
 
+export const editGroup = (id, name, mail_addresses_text) => {
+  return dispatch => {
+    return axios({
+      method: 'put',
+      url: `${URL_PREFIX}/groups`,
+      data: {"id": id, "name": name, "mail_addresses_text": mail_addresses_text}
+    })
+    .then(r => {
+      console.log(r)
+      dispatch(getGroups())
+    })
+    .catch(e => console.log(e))
+  }
+}
+
 export const deleteGroup = id => {
   return dispatch => {
     return axios.delete(`${URL_PREFIX}/groups?id=${id}`)
