@@ -188,8 +188,6 @@ export default function Dashboard({ mode, getGroups }) {
               }
             </Grid>
 
-
-
           </Grid>
           <Box pt={4}>
             <Copyright />

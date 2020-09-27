@@ -1,7 +1,8 @@
 import actionType from "../actions/actionType";
+import { modeType } from "../constants"
 
 
-const mode = (state = 1, action) => {
+const mode = (state = modeType.Home, action) => {
   switch (action.type) {
     case actionType.SELECT_MODE:
       return action.id

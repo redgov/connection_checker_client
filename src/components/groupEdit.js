@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -53,14 +53,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GroupEdit({ machines, groups, selectedGroupId,
-  selectGroup, deleteGroup }) {
+export default function GroupEdit({ machines, groups, mode, selectedGroupId,
+  selectGroup, deleteGroup, editGroup }) {
 
   const classes = useStyles();
   const [state, setState] = useState({
     age: '',
     name: 'hai',
   });
+
+  const [newGroupName, setNewGroupName] = useState("")
+  const [newMailAddresses, setNewMailAddresses] = useState("")
+
+  useEffect(() => {
+    if (groups.length > 0) {
+      selectGroup(groups[0].id)
+    }
+  }, [mode])
+
+  useEffect(() => {
+    for (let i = 0; i < groups.length; i++) {
+      if (groups[i].id === selectedGroupId) {
+        setNewGroupName(groups[i].name)
+        setNewMailAddresses(groups[i].to_addresses)
+      }
+    }
+  }, [selectedGroupId])
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -121,7 +139,8 @@ export default function GroupEdit({ machines, groups, selectedGroupId,
                   <TextField
                     required
                     label="Required"
-                    value={group.name}
+                    value={newGroupName}
+                    onChange={e => setNewGroupName(e.target.value)}
                   />
                 </TableCell>
                 <TableCell>
@@ -130,11 +149,20 @@ export default function GroupEdit({ machines, groups, selectedGroupId,
                     label="Multiline"
                     multiline
                     rows={4}
-                    value={group.to_addresses}
+                    value={newMailAddresses}
+                    onChange={e => setNewMailAddresses(e.target.value)}
                     variant="outlined"
                   />
                 </TableCell>
-                <TableCell><SaveRoundedIcon /></TableCell>
+                <TableCell>
+                  <SaveRoundedIcon
+                    button="true"
+                    onClick={() => editGroup(
+                      selectedGroupId,
+                      newGroupName,
+                      newMailAddresses)}
+                  />
+                </TableCell>
                 <TableCell>
                   <DeleteForeverRoundedIcon
                     button="true"
