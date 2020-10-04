@@ -9,14 +9,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import VerifiedUserOutlinedIcon from '@material-ui/icons/VerifiedUserOutlined';
 import MachineCondition from '../containers/machineCondition';
 import Sidebar from '../containers/sidebar';
 import GroupEdit from '../containers/groupEdit';
@@ -116,6 +115,9 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  titleIcon: {
+    marginBottom: -3,
+  }
 }));
 
 
@@ -132,7 +134,7 @@ export default function Dashboard({ mode, getGroups, getMachines }) {
   useEffect(() => {
     getGroups()
     getMachines()
-  }, [getGroups, getMachines])
+  }, [getGroups, getMachines, ])
 
   return (
     <div className={classes.root}>
@@ -149,13 +151,8 @@ export default function Dashboard({ mode, getGroups, getMachines }) {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Connection Checker
+            Connection Checker <VerifiedUserOutlinedIcon className={classes.titleIcon}/>
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer

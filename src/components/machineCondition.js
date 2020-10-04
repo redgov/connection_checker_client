@@ -4,8 +4,13 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
+import StopRoundedIcon from '@material-ui/icons/StopRounded';
+import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
+import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import Title from './Title';
+import { Button } from '@material-ui/core';
 
 
 export default function MachineCondition({machines, selectedGroupId}) {
@@ -30,11 +35,25 @@ export default function MachineCondition({machines, selectedGroupId}) {
             <TableRow key={machine.id}>
               <TableCell>{machine.name}</TableCell>
               <TableCell>{machine.ip_address}</TableCell>
-              <TableCell>{machine.last_result}</TableCell>
+              <TableCell>
+              {machine.is_success_last
+                ? <CheckRoundedIcon color="primary" />
+                : <CloseRoundedIcon color="secondary" />}
+              </TableCell>
               <TableCell>{machine.success_time}</TableCell>
               <TableCell>{machine.failure_time}</TableCell>
-              <TableCell>{machine.is_active ? "true" : "false"}</TableCell>
-              <TableCell><PlayCircleOutlineIcon /></TableCell>
+              <TableCell>
+                {machine.is_active 
+                ? <LibraryAddCheckIcon color="primary" />
+                : <StopRoundedIcon color="secondary" />}
+              </TableCell>
+              <TableCell>
+              <Button
+                color="primary"
+              >
+                <PlayCircleFilledIcon/>
+              </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

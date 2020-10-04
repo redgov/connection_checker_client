@@ -7,8 +7,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Title from './Title';
+import { Button } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 60,
   },
+  button: {
+    marginLeft: -15,
+  }
 }));
 
 
@@ -36,7 +40,7 @@ export default function GroupAdd({ addGroup }) {
   const [address, setAddress] = useState("")
 
   const handleClickAdd = () => {
-    if (groupName === ""){
+    if (groupName === "") {
       alert("グループ名は最低一文字入力してください")
       return
     }
@@ -63,7 +67,7 @@ export default function GroupAdd({ addGroup }) {
                   required
                   label="Required"
                   value={groupName}
-                  onChange={(e)=>setGroupName(e.target.value)}
+                  onChange={(e) => setGroupName(e.target.value)}
                 />
               </TableCell>
               <TableCell>
@@ -73,12 +77,18 @@ export default function GroupAdd({ addGroup }) {
                   multiline
                   rows={4}
                   value={address}
-                  onChange={(e)=>setAddress(e.target.value)}
+                  onChange={(e) => setAddress(e.target.value)}
                   variant="outlined"
                 />
               </TableCell>
               <TableCell>
-                <AddCircleOutlineRoundedIcon button="true" onClick={handleClickAdd} />
+                <Button
+                  onClick={handleClickAdd}
+                  color="primary"
+                  className={classes.button}
+                >
+                  <AddCircleIcon />
+                </Button>
               </TableCell>
             </TableRow>
           </TableBody>

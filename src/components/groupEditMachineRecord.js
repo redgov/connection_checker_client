@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import SaveRoundedIcon from '@material-ui/icons/SaveRounded';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import Switch from '@material-ui/core/Switch';
+import { Button } from '@material-ui/core';
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -33,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 60,
   },
+  button: {
+    marginLeft: -16,
+  }
 }));
 
 export default function GroupEditMachineRecord({ machine, groups,
@@ -63,12 +67,12 @@ export default function GroupEditMachineRecord({ machine, groups,
       </StyledTableCell>
       <StyledTableCell>
         <FormControl className={classes.formControl}>
-          <NativeSelect 
+          <NativeSelect
             onChange={e => setGroupId(e.target.key)}
             value={groupId}
           >
             {groups.map(group =>
-              <option 
+              <option
                 key={group.id}
                 value={group.id}
               >
@@ -86,14 +90,24 @@ export default function GroupEditMachineRecord({ machine, groups,
         />
       </StyledTableCell>
       <StyledTableCell
-        onClick={() => editMachine(machine.id, groupId, name, address, isActive)}
       >
+        <Button
+          onClick={() => editMachine(machine.id, groupId, name, address, isActive)}
+          className={classes.button}
+          color="primary"
+        >
         <SaveRoundedIcon />
+        </Button>
       </StyledTableCell>
       <StyledTableCell
-        onClick={() => deleteMachine(machine.id)}  
       >
-        <DeleteForeverRoundedIcon />
+        <Button
+          onClick={() => deleteMachine(machine.id)}
+          className={classes.button}
+          color="secondary"
+        >
+          <DeleteForeverRoundedIcon />
+        </Button>
       </StyledTableCell>
     </StyledTableRow>
   );
