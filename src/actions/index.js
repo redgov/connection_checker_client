@@ -25,7 +25,7 @@ export const setGroups = groups => ({
 })
 
 export const setMachines = machines => ({
-  type: actionType.SET_GROUPS,
+  type: actionType.SET_MACHINES,
   machines
 })
 
@@ -86,6 +86,23 @@ export const deleteGroup = id => {
     .catch(e => console.log(e))
   }
 }
+
+
+// machines
+export const getMachines = () => {
+  return dispatch => {
+    return axios({
+      method: 'get',
+      url: `${URL_PREFIX}/${API.MACHINES}`,
+    })
+    .then(r => {
+      console.log(r)
+      dispatch(setMachines(r.data.machines))
+    })
+    .catch(e => console.log(e))
+  }
+}
+
 export const addMachine = (group_id, name, ip_address) => {
   return dispatch => {
     return axios({
@@ -95,7 +112,7 @@ export const addMachine = (group_id, name, ip_address) => {
     })
     .then(r => {
       console.log(r)
-      // dispatch(getMachines())
+      dispatch(getMachines())
     })
     .catch(e => console.log(e))
   }

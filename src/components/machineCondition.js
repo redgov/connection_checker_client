@@ -12,7 +12,7 @@ export default function MachineCondition({machines, selectedGroupId}) {
 
   return (
     <React.Fragment>
-      <Title>Machine List</Title>
+      <Title>マシン一覧</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -33,7 +33,7 @@ export default function MachineCondition({machines, selectedGroupId}) {
               <TableCell>{machine.last_result}</TableCell>
               <TableCell>{machine.success_time}</TableCell>
               <TableCell>{machine.failure_time}</TableCell>
-              <TableCell>{machine.is_active}</TableCell>
+              <TableCell>{machine.is_active ? "true" : "false"}</TableCell>
               <TableCell><PlayCircleOutlineIcon /></TableCell>
             </TableRow>
           ))}
