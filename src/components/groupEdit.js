@@ -59,9 +59,18 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
     }
   }, [selectedGroupId])
 
-  const handleDeleteGroup = () => {
-    deleteGroup(selectedGroupId)
+  useEffect(() => {
+    let shouldChange = true
+    for (let i = 0; i < groups.length; i++) {
+      if (groups[i].id === selectedGroupId){
+        shouldChange = false
   }
+    }
+    if (shouldChange && groups.length > 0){
+      selectGroup(groups[0].id)
+    }
+
+  }, [groups])
 
   // for add machine
   const [newMachineName, setNewMachineName] = useState("")
