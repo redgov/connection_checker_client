@@ -117,3 +117,14 @@ export const addMachine = (group_id, name, ip_address) => {
     .catch(e => console.log(e))
   }
 }
+
+export const deleteMachine = id => {
+  return dispatch => {
+    return axios.delete(`${URL_PREFIX}/${API.MACHINES}?id=${id}`)
+    .then(r => {
+      console.log(r)
+      dispatch(getMachines())
+    })
+    .catch(e => console.log(e))
+  }
+}
