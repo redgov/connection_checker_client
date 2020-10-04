@@ -12,10 +12,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import SaveRoundedIcon from '@material-ui/icons/SaveRounded';
-import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import Title from './Title';
 import GroupEditMachineRecord from '../containers/groupEditMachineRecord';
+import { Button } from '@material-ui/core';
 
 
 
@@ -34,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 60,
   },
+  button: {
+    marginLeft: -16,
+  }
 }));
 
 export default function GroupEdit({ machines, groups, mode, selectedGroupId,
@@ -59,9 +63,18 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
     }
   }, [selectedGroupId])
 
-  const handleDeleteGroup = () => {
-    deleteGroup(selectedGroupId)
-  }
+  useEffect(() => {
+    let shouldChange = true
+    for (let i = 0; i < groups.length; i++) {
+      if (groups[i].id === selectedGroupId){
+        shouldChange = false
+      }
+    }
+    if (shouldChange && groups.length > 0){
+      selectGroup(groups[0].id)
+    }
+
+  }, [groups])
 
   // for add machine
   const [newMachineName, setNewMachineName] = useState("")
@@ -76,10 +89,6 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
         <NativeSelect
           value={selectedGroupId}
           onChange={(e) => selectGroup(Number(e.target.value))}
-          inputProps={{
-            name: 'age',
-            id: 'age-native-label-placeholder',
-          }}
         >
           {groups.map((group) => (
             <option key={group.id} value={group.id}>
@@ -124,20 +133,28 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
                     variant="outlined"
                   />
                 </TableCell>
+
                 <TableCell>
-                  <SaveRoundedIcon
-                    button="true"
+                  <Button
                     onClick={() => editGroup(
                       selectedGroupId,
                       newGroupName,
                       newMailAddresses)}
-                  />
+                    color="primary"
+                    className={classes.button}
+                  >
+                    <SaveRoundedIcon />
+                  </Button>
                 </TableCell>
+
                 <TableCell>
-                  <DeleteForeverRoundedIcon
-                    button="true"
-                    onClick={handleDeleteGroup}
-                  />
+                  <Button
+                    onClick={() => deleteGroup(selectedGroupId)}
+                    color="secondary"
+                    className={classes.button}
+                  >
+                    <DeleteForeverRoundedIcon />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -174,14 +191,18 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
                 />
               </TableCell>
               <TableCell>
-                <AddCircleOutlineRoundedIcon 
-                  button="true"
+                <Button
                   onClick={() => addMachine(
                     selectedGroupId,
                     newMachineName,
                     newMachineAddress
                   )}
-                />
+                  color="primary"
+                  className={classes.button}
+                >
+                  <AddCircleIcon />
+
+                </Button>
               </TableCell>
             </TableRow>
           </TableBody>
