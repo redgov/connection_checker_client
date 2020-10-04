@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GroupEditMachineRecord({ machine, groups,
-  deleteMachine }) {
+  editMachine, deleteMachine }) {
 
   const classes = useStyles();
 
@@ -85,7 +85,9 @@ export default function GroupEditMachineRecord({ machine, groups,
           color="primary"
         />
       </StyledTableCell>
-      <StyledTableCell>
+      <StyledTableCell
+        onClick={() => editMachine(machine.id, groupId, name, address, isActive)}
+      >
         <SaveRoundedIcon />
       </StyledTableCell>
       <StyledTableCell

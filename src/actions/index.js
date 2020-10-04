@@ -118,6 +118,28 @@ export const addMachine = (group_id, name, ip_address) => {
   }
 }
 
+export const editMachine = (machine_id, group_id, name,
+  ip_address, is_active) => {
+  return dispatch => {
+    return axios({
+      method: 'put',
+      url: `${URL_PREFIX}/${API.MACHINES}`,
+      data: {
+        "machine_id": machine_id,
+        "group_id": group_id,
+        "name": name,
+        "ip_address": ip_address,
+        "is_active": is_active,
+      }
+    })
+    .then(r => {
+      console.log(r)
+      dispatch(getMachines())
+    })
+    .catch(e => console.log(e))
+  }
+}
+
 export const deleteMachine = id => {
   return dispatch => {
     return axios.delete(`${URL_PREFIX}/${API.MACHINES}?id=${id}`)
