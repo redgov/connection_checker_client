@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
@@ -14,27 +14,10 @@ import TableRow from '@material-ui/core/TableRow';
 import SaveRoundedIcon from '@material-ui/icons/SaveRounded';
 import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
-import Switch from '@material-ui/core/Switch';
 import Title from './Title';
+import GroupEditMachineRecord from '../containers/groupEditMachineRecord';
 
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -75,11 +58,6 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
       }
     }
   }, [selectedGroupId])
-
-  const [active, setActive] = React.useState(true);
-  const handleSwitch = event => {
-    setActive(event.target.checked)
-  }
 
   const handleDeleteGroup = () => {
     deleteGroup(selectedGroupId)
@@ -225,47 +203,7 @@ export default function GroupEdit({ machines, groups, mode, selectedGroupId,
           </TableHead>
           <TableBody>
             {machines.map((machine) => (
-              <StyledTableRow key={machine.id}>
-                <StyledTableCell>
-                  <TextField
-                    required
-                    defaultValue={machine.name}
-                  />
-                </StyledTableCell>
-                <StyledTableCell>
-                  <TextField
-                    required
-                    defaultValue={machine.ip_address}
-                  />
-                </StyledTableCell>
-                <StyledTableCell>
-                  <FormControl className={classes.formControl}>
-                    <NativeSelect
-                      inputProps={{
-                        name: 'age',
-                        id: 'age-native-label-placeholder',
-                      }}
-                    >
-                      {groups.map(group =>
-                        <option key={group.id} value={group.id}>
-                          {group.name}
-                        </option>
-                      )}
-                    </NativeSelect>
-                  </FormControl>
-                </StyledTableCell>
-                <StyledTableCell>
-                  <Switch
-                    checked={active}
-                    onChange={handleSwitch}
-                    color="primary"
-                    name="checkedB"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                  />
-                </StyledTableCell>
-                <StyledTableCell><SaveRoundedIcon /></StyledTableCell>
-                <StyledTableCell><DeleteForeverRoundedIcon /></StyledTableCell>
-              </StyledTableRow>
+              <GroupEditMachineRecord key={machine.id} machine={machine} />
             ))}
           </TableBody>
         </Table>

@@ -119,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Dashboard({ mode, getGroups }) {
+export default function Dashboard({ mode, getGroups, getMachines }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -130,9 +130,9 @@ export default function Dashboard({ mode, getGroups }) {
   };
 
   useEffect(() => {
-    // DBからgroup取得
     getGroups()
-  }, [getGroups])
+    getMachines()
+  }, [getGroups, getMachines])
 
   return (
     <div className={classes.root}>

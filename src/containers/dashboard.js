@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import Dashboard from "../components/Dashboard"
-import { getGroups } from '../actions'
+import { getGroups, getMachines } from '../actions'
 
 
 const mapStateToProps = (state) => ({
@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getGroups: () => dispatch(getGroups()),
+  getMachines: () => dispatch(getMachines()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
