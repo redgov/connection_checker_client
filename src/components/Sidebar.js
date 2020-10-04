@@ -8,6 +8,8 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+
 
 import { modeType } from '../constants'
 
@@ -21,6 +23,17 @@ export default function Sidebar({ groups, selectGroup, selectMode }) {
 
   return (
     <React.Fragment>
+      <List>
+
+        <ListItem button onClick={() => selectMode(modeType.Home)}>
+          <ListItemIcon>
+            <HomeRoundedIcon />
+          </ListItemIcon>
+          <ListItemText primary="HOME" />
+        </ListItem>
+
+      </List>
+      <Divider />
       <List>
 
         <ListItem button onClick={() => selectMode(modeType.GroupAdd)}>

@@ -10,13 +10,25 @@ import StopRoundedIcon from '@material-ui/icons/StopRounded';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import Title from './Title';
-import { Button } from '@material-ui/core';
+import { Button, makeStyles, Paper } from '@material-ui/core';
 
 
-export default function MachineCondition({machines, selectedGroupId}) {
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+  },
+}));
+
+
+export default function MachineCondition({ machines, selectedGroupId }) {
+
+  const classes = useStyles()
 
   return (
-    <React.Fragment>
+    <Paper className={classes.paper}>
       <Title>マシン一覧</Title>
       <Table size="small">
         <TableHead>
@@ -31,33 +43,33 @@ export default function MachineCondition({machines, selectedGroupId}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {machines.map((machine) => ( machine.group_id === selectedGroupId &&
+          {machines.map((machine) => (machine.group_id === selectedGroupId &&
             <TableRow key={machine.id}>
               <TableCell>{machine.name}</TableCell>
               <TableCell>{machine.ip_address}</TableCell>
               <TableCell>
-              {machine.is_success_last
-                ? <CheckRoundedIcon color="primary" />
-                : <CloseRoundedIcon color="secondary" />}
+                {machine.is_success_last
+                  ? <CheckRoundedIcon color="primary" />
+                  : <CloseRoundedIcon color="secondary" />}
               </TableCell>
               <TableCell>{machine.success_time}</TableCell>
               <TableCell>{machine.failure_time}</TableCell>
               <TableCell>
-                {machine.is_active 
-                ? <LibraryAddCheckIcon color="primary" />
-                : <StopRoundedIcon color="secondary" />}
+                {machine.is_active
+                  ? <LibraryAddCheckIcon color="primary" />
+                  : <StopRoundedIcon color="secondary" />}
               </TableCell>
               <TableCell>
-              <Button
-                color="primary"
-              >
-                <PlayCircleFilledIcon/>
-              </Button>
+                <Button
+                  color="primary"
+                >
+                  <PlayCircleFilledIcon />
+                </Button>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </React.Fragment>
+    </Paper>
   );
 }

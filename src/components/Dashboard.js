@@ -16,6 +16,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import VerifiedUserOutlinedIcon from '@material-ui/icons/VerifiedUserOutlined';
+import Home from './home';
 import MachineCondition from '../containers/machineCondition';
 import Sidebar from '../containers/sidebar';
 import GroupEdit from '../containers/groupEdit';
@@ -134,7 +135,7 @@ export default function Dashboard({ mode, getGroups, getMachines }) {
   useEffect(() => {
     getGroups()
     getMachines()
-  }, [getGroups, getMachines, ])
+  }, [getGroups, getMachines,])
 
   return (
     <div className={classes.root}>
@@ -151,7 +152,7 @@ export default function Dashboard({ mode, getGroups, getMachines }) {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Connection Checker <VerifiedUserOutlinedIcon className={classes.titleIcon}/>
+            Connection Checker <VerifiedUserOutlinedIcon className={classes.titleIcon} />
           </Typography>
         </Toolbar>
       </AppBar>
@@ -175,13 +176,11 @@ export default function Dashboard({ mode, getGroups, getMachines }) {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              {mode === modeType.GroupAdd ? <GroupAdd />
-                : mode === modeType.GroupEdit ? <GroupEdit />
-                  : mode === modeType.Machines ?
-                    <Paper className={classes.paper}>
-                      <MachineCondition />
-                    </Paper>
-                    : null
+              {mode === modeType.Home ? <Home />
+                : mode === modeType.GroupAdd ? <GroupAdd />
+                  : mode === modeType.GroupEdit ? <GroupEdit />
+                    : mode === modeType.Machines ? <MachineCondition />
+                      : null
               }
             </Grid>
 
